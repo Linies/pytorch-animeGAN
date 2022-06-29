@@ -111,7 +111,8 @@ def compute_data_mean(data_folder):
     for img_file in tqdm(image_files):
         path = os.path.join(data_folder, img_file)
         image = cv2.imread(path)
-        total += image.mean(axis=(0, 1))
+        if not im is None:
+            total += image.mean(axis=(0, 1))
 
     channel_mean = total / len(image_files)
     mean = np.mean(channel_mean)
