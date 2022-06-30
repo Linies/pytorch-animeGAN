@@ -17,7 +17,6 @@ from utils.common import initialize_weights
 from utils.image_processing import denormalize_input
 from dataset import AnimeDataSet
 from tqdm import tqdm
-from inference import Transformer
 
 gaussian_mean = torch.tensor(0.0)
 gaussian_std = torch.tensor(0.1)
@@ -120,12 +119,9 @@ def main(args):
 
     loss_fn = AnimeGanLoss(args)
 
-    # define transform
-    transform = Transformer(add_mean=True)
-
     # Create DataLoader
     data_loader = DataLoader(
-        AnimeDataSet(args,transform=transform),
+        AnimeDataSet(args),
         batch_size=args.batch_size,
         num_workers=0,#cpu_count(),
         pin_memory=True,
